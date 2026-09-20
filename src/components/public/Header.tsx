@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, ArrowUpRight, Shield, FileText, Download, Layers } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 import { trackAction } from '../../utils/analyticsTracker.ts';
 import { CvItem } from '../../types.ts';
 

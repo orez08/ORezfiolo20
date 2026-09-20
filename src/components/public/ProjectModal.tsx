@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { X, ArrowUpRight, ChevronLeft, ChevronRight, Calendar, Tag, User } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 import { WorkProject } from '../../types.ts';
 import { trackAction } from '../../utils/analyticsTracker.ts';
 

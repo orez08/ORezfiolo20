@@ -130,8 +130,11 @@ export const api = {
   async getPortfolio(): Promise<PortfolioData> {
     try {
       const res = await fetch('/api/portfolio');
-      if (!res.ok) throw new Error('Failed to fetch portfolio');
-      return await res.json();
+      const contentType = res.headers.get('content-type') || '';
+      if (res.ok && contentType.includes('application/json')) {
+        return await res.json();
+      }
+      throw new Error('API server unavailable or non-JSON response');
     } catch (err) {
       console.warn('Using cached or initial portfolio data', err);
       const cached = localStorage.getItem('orez_portfolio_data');

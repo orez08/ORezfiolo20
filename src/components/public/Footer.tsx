@@ -1,6 +1,6 @@
 import React from 'react';
 import { ArrowUp, Instagram, Twitter, Linkedin, Globe } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { ContactContent } from '../../types.ts';
 import { trackAction } from '../../utils/analyticsTracker.ts';
 
