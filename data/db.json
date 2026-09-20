@@ -1,0 +1,402 @@
+{
+  "portfolio": {
+    "hero": {
+      "tagline": "Creative • Brand Designer • Visual Designer",
+      "statementPrefix": "I help businesses and brands build stronger systems and strategy that create better digital experiences, increase visibility, and turn ideas into",
+      "statementHighlight": "growth",
+      "statementSuffix": ".",
+      "subtitle": "Awotimiro Moses Oreoluwa — multidisciplinary designer crafting high-impact brand identities, visual design systems, and bespoke digital experiences.",
+      "ctaPrimaryText": "Let's Work Together",
+      "ctaSecondaryText": "View Selected Work",
+      "floatingBadges": [
+        {
+          "id": "b1",
+          "label": "Brand Identity",
+          "sub": "Visual Systems & Marks"
+        },
+        {
+          "id": "b2",
+          "label": "Visual Designer",
+          "sub": "Art Direction & Layout"
+        },
+        {
+          "id": "b3",
+          "label": "UI/UX Design",
+          "sub": "Digital Interfaces"
+        },
+        {
+          "id": "b4",
+          "label": "20+ Brands Designed",
+          "sub": "Visual Transformations"
+        }
+      ],
+      "marqueeClients": [
+        "KINETIX LABS",
+        "VANGUARD VENTURES",
+        "AURA SYSTEMS",
+        "NOVA CAPITAL",
+        "MONOLITH STUDIOS",
+        "SYNAPSE TECH",
+        "LUMINA LIVING",
+        "EQUINOX COMMERCE",
+        "TERRA HEALTH"
+      ]
+    },
+    "about": {
+      "sectionNumber": "01",
+      "title": "About ORez",
+      "introHeading": "Strategic visual thinking that elevates brand perception and aesthetic authority.",
+      "mainBio": "I'm ORez, a multidisciplinary designer specializing in Visual Design, Brand Identity, UI/UX, Social Media, and Product Design. I've helped 20+ brands elevate their presence through intentional, results-driven creativity.",
+      "secondaryBio": "My work sits at the intersection of aesthetic discipline and strategic brand clarity. I do not design to decorate; I craft visual ecosystems that clarify value, elevate market presence, and command premium brand equity. Every curve, typographic pairing, and layout hierarchy serves a precise design objective.",
+      "portraitUrl": "/src/assets/images/orez_portrait_1789901819865.jpg",
+      "portraitCaption": "Awotimiro Moses Oreoluwa — Lead Visual & Brand Designer",
+      "portraitBadge": "Creative & Visual Director",
+      "stats": [
+        {
+          "id": "s1",
+          "value": "20+",
+          "label": "Brands Designed",
+          "description": "Across Africa, Europe & North America"
+        },
+        {
+          "id": "s2",
+          "value": "45+",
+          "label": "Design Projects",
+          "description": "From brand identity to complete UI/UX systems"
+        },
+        {
+          "id": "s3",
+          "value": "100%",
+          "label": "Design Precision",
+          "description": "Bespoke typography & art direction"
+        },
+        {
+          "id": "s4",
+          "value": "5+",
+          "label": "Years of Craft",
+          "description": "Refinement of visual language & design"
+        }
+      ],
+      "disciplineChips": [
+        "Brand Identity",
+        "Visual Design",
+        "Art Direction",
+        "UI/UX Design",
+        "Design Systems",
+        "Editorial Layout",
+        "Social Media Design",
+        "Typography Hierarchy"
+      ]
+    },
+    "capabilities": [
+      {
+        "id": "cap-1",
+        "number": "01",
+        "title": "Visual Design & Art Direction",
+        "description": "High-impact visual communication systems, bespoke typography arrangements, creative direction, and editorial layouts crafted to capture attention and communicate authority.",
+        "skills": [
+          "Art Direction",
+          "Editorial Design",
+          "Visual Guidelines",
+          "Creative Direction"
+        ],
+        "published": true,
+        "order": 1
+      },
+      {
+        "id": "cap-2",
+        "number": "02",
+        "title": "Brand Identity & Visual Systems",
+        "description": "Comprehensive brand identity architecture from foundational visual positioning and conceptual marks to detailed design systems that ensure absolute consistency across touchpoints.",
+        "skills": [
+          "Logo Suites",
+          "Brand Guidelines",
+          "Typography Hierarchy",
+          "Packaging Design"
+        ],
+        "published": true,
+        "order": 2
+      },
+      {
+        "id": "cap-3",
+        "number": "03",
+        "title": "UI/UX & Digital Product Design",
+        "description": "Intuitive web and mobile interfaces sculpted with rigorous design methodologies, frictionless user journeys, wireframes, and scalable design component libraries.",
+        "skills": [
+          "Web Design",
+          "Mobile App UI",
+          "Interactive Prototyping",
+          "Design Systems"
+        ],
+        "published": true,
+        "order": 3
+      },
+      {
+        "id": "cap-4",
+        "number": "04",
+        "title": "Social Media & Visual Content",
+        "description": "High-impact social visual asset suites, editorial carousel templates, campaign aesthetics, and dynamic graphic assets designed for brand recognition and visual engagement.",
+        "skills": [
+          "Campaign Visuals",
+          "Carousel Design",
+          "Graphic Systems",
+          "Visual Storytelling"
+        ],
+        "published": true,
+        "order": 4
+      },
+      {
+        "id": "cap-5",
+        "number": "05",
+        "title": "Design Systems & Component Architecture",
+        "description": "Scalable digital design libraries bridging brand aesthetics with systematic layout tokens, typography scales, responsive components, and rigorous visual design documentation.",
+        "skills": [
+          "Design Tokens",
+          "Component Libraries",
+          "Visual Audits",
+          "Design Documentation"
+        ],
+        "published": true,
+        "order": 5
+      }
+    ],
+    "projects": [
+      {
+        "id": "proj-1",
+        "title": "Kinetix Global Brand Identity",
+        "category": "Brand Identity",
+        "year": "2025",
+        "client": "Kinetix",
+        "role": "Lead Brand & Visual Designer",
+        "coverImage": "https://images.unsplash.com/photo-1600132806370-bf17e65e942f?q=80&w=1200&auto=format&fit=crop",
+        "gallery": [
+          "https://images.unsplash.com/photo-1600132806370-bf17e65e942f?q=80&w=1200&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=1200&auto=format&fit=crop"
+        ],
+        "description": "Comprehensive visual identity system and brand guidelines. Crafted an authoritative visual language around geometric precision, rich tactile palettes, and dynamic modular iconography across print, packaging, and digital collateral.",
+        "metrics": "Complete visual identity suite & 120-page brand guidelines",
+        "featured": true,
+        "published": true,
+        "order": 1,
+        "tags": [
+          "Brand Identity",
+          "Visual Guidelines",
+          "Collateral Design"
+        ]
+      },
+      {
+        "id": "proj-2",
+        "title": "Vanguard Digital Interface & Design System",
+        "category": "UI/UX",
+        "year": "2025",
+        "client": "Vanguard Partners",
+        "role": "Lead UI/UX & System Designer",
+        "coverImage": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
+        "gallery": [
+          "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop"
+        ],
+        "description": "Bespoke web interface and scalable design component system. Designed an ultra-legible editorial layout with crisp typography, balanced whitespace, intuitive visual modules, and accessible color contrast.",
+        "metrics": "Comprehensive design system with 80+ modular UI components",
+        "featured": true,
+        "published": true,
+        "order": 2,
+        "tags": [
+          "UI/UX Design",
+          "Design System",
+          "Web Design"
+        ]
+      },
+      {
+        "id": "proj-3",
+        "title": "Aura Acoustic Packaging & Visual Identity",
+        "category": "Visual Design",
+        "year": "2024",
+        "client": "Aura Acoustic Lab",
+        "role": "Art Director & Visual Designer",
+        "coverImage": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=1200&auto=format&fit=crop",
+        "gallery": [
+          "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=1200&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1546435770-a3e426bf472b?q=80&w=1200&auto=format&fit=crop"
+        ],
+        "description": "Packaging design and visual campaign assets for premium audio equipment. Developed an acoustic wave visual motif paired with deep tactile textures, custom embossed foil stamps, and minimalist unboxing collateral.",
+        "metrics": "Premium bespoke packaging suite & campaign art direction",
+        "featured": true,
+        "published": true,
+        "order": 3,
+        "tags": [
+          "Packaging Design",
+          "Art Direction",
+          "Visual Campaign"
+        ]
+      },
+      {
+        "id": "proj-4",
+        "title": "Monolith Editorial & Typographic Narrative",
+        "category": "Social Media",
+        "year": "2024",
+        "client": "Monolith Creative House",
+        "role": "Visual Designer & Art Director",
+        "coverImage": "https://images.unsplash.com/photo-1542744094-3a31f272c490?q=80&w=1200&auto=format&fit=crop",
+        "gallery": [
+          "https://images.unsplash.com/photo-1542744094-3a31f272c490?q=80&w=1200&auto=format&fit=crop"
+        ],
+        "description": "Editorial visual rollout featuring custom typographic carousels, striking layout compositions, high-contrast palette pairings, and cohesive storytelling templates.",
+        "metrics": "60+ bespoke editorial layouts & social carousel templates",
+        "featured": false,
+        "published": true,
+        "order": 4,
+        "tags": [
+          "Social Media Design",
+          "Editorial Layout",
+          "Typography"
+        ]
+      }
+    ],
+    "testimonials": [
+      {
+        "id": "test-1",
+        "authorName": "Dr. Adeyemi Adeleke",
+        "authorRole": "Founder & Managing Director",
+        "company": "Kinetix Global",
+        "feedbackText": "Working with ORez fundamentally elevated our brand's visual stature. Moses doesn't just create visuals; he crafts design systems that command immediate aesthetic authority. Our brand architecture and visual presentation became our proudest asset.",
+        "avatarUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop",
+        "published": true,
+        "featured": true,
+        "order": 1
+      },
+      {
+        "id": "test-2",
+        "authorName": "Elena Rostova",
+        "authorRole": "Head of Brand & Creative",
+        "company": "Aura Sound Lab",
+        "feedbackText": "ORez possesses that rare combination of fastidious aesthetic taste and deep structural design discipline. He delivered our comprehensive brand suite and packaging guidelines with world-class precision and attention to every visual detail.",
+        "avatarUrl": "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=200&auto=format&fit=crop",
+        "published": true,
+        "featured": true,
+        "order": 2
+      },
+      {
+        "id": "test-3",
+        "authorName": "Tunde Balogun",
+        "authorRole": "Creative Director",
+        "company": "Vanguard Partners",
+        "feedbackText": "If you need a designer who brings relentless visual craft, sophisticated typography, and pristine art direction, ORez is the creative partner to call. An extraordinary eye for detail and world-class design execution.",
+        "avatarUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop",
+        "published": true,
+        "featured": true,
+        "order": 3
+      }
+    ],
+    "contact": {
+      "sectionNumber": "05",
+      "title": "Let's Work Together",
+      "headline": "Ready to elevate your brand with world-class visual design?",
+      "subtext": "I partner with brands, founders, and creative teams on bespoke brand identity, visual design, and UI/UX projects. Inquire directly or share your project brief below.",
+      "email": "workwithorez@gmail.com",
+      "phone": "08165462205",
+      "whatsappUrl": "https://wa.me/2348165462205?text=Hello%20ORez,%20I%20would%20like%20to%20discuss%20a%20creative%20project.",
+      "location": "Lagos, Nigeria • Available for Worldwide Commissions",
+      "availability": "Accepting Brand & Design Commissions",
+      "projectBriefCategories": [
+        "Brand Identity & Positioning",
+        "Visual Design & Art Direction",
+        "UI/UX & Digital Experience",
+        "Social Media & Content Strategy",
+        "Product Design & Systems",
+        "Comprehensive Brand Partnership"
+      ],
+      "projectBudgetCategories": [
+        "$5,000 – $10,000",
+        "$10,000 – $25,000",
+        "$25,000 – $50,000",
+        "$50,000+",
+        "Project Based (Custom)"
+      ],
+      "socials": {
+        "instagram": "https://www.instagram.com/orezstudio08?stkn=MWRpempxZGpyYWU2bw==",
+        "twitter": "https://x.com/orez_studio",
+        "linkedin": "https://www.linkedin.com/in/awotimiro-moses-oreoluwa-54ba5b323?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
+        "facebook": "https://www.facebook.com/canvaguy",
+        "behance": "https://behance.net/orezstudio",
+        "dribbble": "https://dribbble.com/orezstudio"
+      },
+      "footerNote": "Crafted with intentional typography, refined aesthetics, and strategic design precision.",
+      "copyrightText": "© 2026 ORez STUdio. All rights reserved. Awotimiro Moses Oreoluwa."
+    },
+    "settings": {
+      "siteTitle": "ORez STUdio — Creative • Brand Designer • Visual Designer",
+      "siteDescription": "I help businesses and brands build stronger systems and strategy that create better digital experiences, increase visibility, and turn ideas into growth.",
+      "brandWordmark": "ORez STUdio",
+      "brandSubmark": "CREATIVE & VISUAL DIRECTION",
+      "accentColorDark": "#8B1E1E",
+      "accentColorLight": "#E8746A",
+      "charcoalBg": "#141414",
+      "ivoryText": "#FFFFFF",
+      "enableCookieConsent": false,
+      "analyticsActive": true
+    },
+    "cvItems": [
+      {
+        "id": "cv-1",
+        "title": "Senior Brand & Visual Design CV 2026",
+        "category": "Brand Identity & Art Direction",
+        "fileUrl": "/uploads/orez_portrait_1789901819865.jpg",
+        "fileName": "ORez_Studio_Brand_CV_2026.pdf",
+        "fileSize": "2.4 MB",
+        "updatedAt": "2026-03-20",
+        "published": true,
+        "order": 1
+      },
+      {
+        "id": "cv-2",
+        "title": "UI/UX & Digital Experience Resume",
+        "category": "UI/UX Design Systems",
+        "fileUrl": "/uploads/orez_portrait_1789901819865.jpg",
+        "fileName": "ORez_UI_UX_Resume.pdf",
+        "fileSize": "1.8 MB",
+        "updatedAt": "2026-03-15",
+        "published": true,
+        "order": 2
+      }
+    ]
+  },
+  "interactions": [],
+  "messages": [
+    {
+      "id": "msg-seed-1",
+      "timestamp": "2026-09-18T13:19:11.600Z",
+      "name": "Alexander Sterling",
+      "email": "alex@sterlingventures.co",
+      "projectType": "Brand Identity",
+      "message": "Hello ORez, We are launching a private capital fund and require a rigorous, world-class brand identity system and executive investor deck. Your portfolio work for Kinetix is exactly the caliber we are looking for.",
+      "budget": "$8,000 - $15,000",
+      "timeline": "Within 4 weeks",
+      "read": false
+    }
+  ],
+  "users": [
+    {
+      "id": "user-owner",
+      "email": "moseseawotimiro2008@gmail.com",
+      "name": "Awotimiro Moses Oreoluwa (ORez)",
+      "role": "owner",
+      "passwordHash": "orez2026!"
+    },
+    {
+      "id": "user-owner-alt",
+      "email": "workwithorez@gmail.com",
+      "name": "ORez Studio Lead",
+      "role": "owner",
+      "passwordHash": "orez2026!"
+    },
+    {
+      "id": "user-admin",
+      "email": "admin@orez.studio",
+      "name": "Studio Manager",
+      "role": "admin",
+      "passwordHash": "orezadmin"
+    }
+  ]
+}

@@ -1,0 +1,172 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+@layer base {
+  :root {
+    --font-display: 'Clash Display', 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-body: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  body {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #0A0405;
+    color: #FFFFFF;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: var(--font-display);
+    letter-spacing: -0.03em;
+  }
+}
+
+/* Site-wide fixed mesh gradient background */
+.site-bg-mesh {
+  background-color: #100103;
+  background-image: 
+    linear-gradient(180deg, rgba(140, 4, 18, 0.35) 0%, rgba(90, 2, 10, 0.5) 45%, rgba(12, 0, 3, 0.92) 100%),
+    url('/assets/crimson_mesh_bg.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+}
+
+@media (min-width: 768px) {
+  .site-bg-mesh {
+    background-attachment: fixed;
+  }
+}
+
+/* Subtle grid lines in white at 6-8% opacity */
+.bg-subtle-grid {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+}
+
+/* Red Neon, Light Red + Black Glassmorphism Rules */
+.glass-surface {
+  background-color: rgba(0, 0, 0, 0.45);
+  background-image: linear-gradient(135deg, rgba(232, 116, 106, 0.08) 0%, rgba(0, 0, 0, 0.5) 100%);
+  border: 1px solid rgba(232, 116, 106, 0.25);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45), 0 0 15px rgba(255, 45, 58, 0.15);
+}
+
+.glass-surface-glow {
+  background-color: rgba(0, 0, 0, 0.5);
+  background-image: linear-gradient(135deg, rgba(232, 116, 106, 0.12) 0%, rgba(0, 0, 0, 0.55) 100%);
+  border: 1px solid rgba(232, 116, 106, 0.45);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 0 24px rgba(255, 45, 58, 0.4), inset 0 1px 0 rgba(232, 116, 106, 0.3);
+}
+
+.glass-circle {
+  background-color: rgba(0, 0, 0, 0.5);
+  background-image: radial-gradient(circle, rgba(232, 116, 106, 0.15) 0%, rgba(0, 0, 0, 0.6) 100%);
+  border: 1px solid rgba(232, 116, 106, 0.35);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 0 16px rgba(255, 45, 58, 0.25);
+}
+
+.glass-input {
+  background-color: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.glass-input:focus {
+  border-color: #E8746A;
+  box-shadow: 0 0 12px rgba(255, 45, 58, 0.45);
+  outline: none;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+/* Tech HUD corner brackets wrapper */
+.hud-frame {
+  position: relative;
+}
+.hud-frame::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: -1px;
+  width: 10px; height: 10px;
+  border-top: 2px solid #E8746A;
+  border-left: 2px solid #E8746A;
+  pointer-events: none;
+}
+.hud-frame::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; right: -1px;
+  width: 10px; height: 10px;
+  border-bottom: 2px solid #E8746A;
+  border-right: 2px solid #E8746A;
+  pointer-events: none;
+}
+
+/* Buttons: Solid white -> hover light red; Ghost 1px white border -> hover fills light red */
+.btn-solid {
+  background-color: #FFFFFF;
+  color: #000000;
+  font-weight: 600;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-solid:hover {
+  background-color: #E8746A;
+  color: #FFFFFF;
+  box-shadow: 0 0 16px rgba(255, 45, 58, 0.45);
+}
+
+.btn-ghost {
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  color: #FFFFFF;
+  background-color: transparent;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-ghost:hover {
+  background-color: #E8746A;
+  border-color: #E8746A;
+  color: #FFFFFF;
+  box-shadow: 0 0 16px rgba(255, 45, 58, 0.45);
+}
+
+/* Custom marquee keyframes */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Thin red accent line animation */
+@keyframes pulse-accent {
+  0%, 100% { opacity: 0.7; transform: scaleX(0.98); }
+  50% { opacity: 1; transform: scaleX(1); }
+}
+
+.animate-accent-line {
+  animation: pulse-accent 3s ease-in-out infinite;
+}
+
