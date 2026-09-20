@@ -55,6 +55,15 @@ export interface Capability {
   order: number;
 }
 
+export interface SoftwareTool {
+  id: string;
+  name: string;
+  level: 'Mastery' | 'Advanced' | 'Proficient' | 'Expert' | string;
+  category: string;
+  published: boolean;
+  order: number;
+}
+
 export interface WorkProject {
   id: string;
   title: string;
@@ -149,6 +158,7 @@ export interface PortfolioData {
   hero: HeroContent;
   about: AboutContent;
   capabilities: Capability[];
+  productionSoftware?: SoftwareTool[];
   projects: WorkProject[];
   work?: WorkProject[];
   testimonials: Testimonial[];

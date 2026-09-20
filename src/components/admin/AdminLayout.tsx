@@ -4,6 +4,7 @@ import {
   Compass,
   User,
   Layers,
+  Cpu,
   Briefcase,
   Quote,
   Mail,
@@ -15,12 +16,14 @@ import {
   Menu,
   X,
   Shield,
+  FileText,
 } from 'lucide-react';
 import { AdminUser, PortfolioData } from '../../types.ts';
 import { AdminDashboard } from './AdminDashboard.tsx';
 import { HeroEditor } from './sections/HeroEditor.tsx';
 import { AboutEditor } from './sections/AboutEditor.tsx';
 import { CapabilitiesManager } from './sections/CapabilitiesManager.tsx';
+import { ProductionSoftwareManager } from './sections/ProductionSoftwareManager.tsx';
 import { WorkManager } from './sections/WorkManager.tsx';
 import { TestimonialsManager } from './sections/TestimonialsManager.tsx';
 import { ContactFooterEditor } from './sections/ContactFooterEditor.tsx';
@@ -28,7 +31,6 @@ import { SiteSettingsEditor } from './sections/SiteSettingsEditor.tsx';
 import { VisitorsTracker } from './sections/VisitorsTracker.tsx';
 import { MessagesInbox } from './sections/MessagesInbox.tsx';
 import { CvManager } from './sections/CvManager.tsx';
-import { FileText } from 'lucide-react';
 
 interface AdminLayoutProps {
   user: AdminUser;
@@ -55,13 +57,14 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
     { id: 'hero', label: '2. Header & Hero', icon: Compass },
     { id: 'about', label: '3. About Section', icon: User },
     { id: 'capabilities', label: '4. Capabilities', icon: Layers },
-    { id: 'work', label: '5. Work & Portfolio', icon: Briefcase },
-    { id: 'testimonials', label: '6. Testimonials', icon: Quote },
-    { id: 'contact', label: '7. Contact & Footer', icon: Mail },
-    { id: 'settings', label: '8. Site Settings', icon: Settings },
-    { id: 'visitors', label: '9. Visitors & Analytics', icon: Users },
-    { id: 'messages', label: '10. Messages Inbox', icon: MessageSquare },
-    { id: 'cv', label: '11. CV / Resume', icon: FileText },
+    { id: 'software', label: '5. Production Software & Toolkit', icon: Cpu },
+    { id: 'work', label: '6. Work & Portfolio', icon: Briefcase },
+    { id: 'testimonials', label: '7. Testimonials', icon: Quote },
+    { id: 'contact', label: '8. Contact & Footer', icon: Mail },
+    { id: 'settings', label: '9. Site Settings', icon: Settings },
+    { id: 'visitors', label: '10. Visitors & Analytics', icon: Users },
+    { id: 'messages', label: '11. Messages Inbox', icon: MessageSquare },
+    { id: 'cv', label: '12. CV / Resume', icon: FileText },
   ];
 
   const handleNavigate = (sectionId: string) => {
@@ -208,6 +211,13 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
         {activeSection === 'capabilities' && (
           <CapabilitiesManager
             capabilities={portfolio.capabilities}
+            onRefresh={onRefreshData}
+          />
+        )}
+
+        {activeSection === 'software' && (
+          <ProductionSoftwareManager
+            software={portfolio.productionSoftware || []}
             onRefresh={onRefreshData}
           />
         )}

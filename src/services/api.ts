@@ -2,6 +2,7 @@ import {
   PortfolioData,
   WorkProject,
   Capability,
+  SoftwareTool,
   Testimonial,
   ContactMessage,
   InteractionLog,
@@ -17,7 +18,11 @@ function getLocalPortfolio(): PortfolioData {
   const cached = localStorage.getItem('orez_portfolio_data');
   if (cached) {
     try {
-      return JSON.parse(cached);
+      const parsed = JSON.parse(cached);
+      if (!parsed.productionSoftware) {
+        parsed.productionSoftware = INITIAL_PORTFOLIO_DATA.productionSoftware;
+      }
+      return parsed;
     } catch {}
   }
   return INITIAL_PORTFOLIO_DATA;
@@ -143,6 +148,9 @@ export const api = {
       const contentType = res.headers.get('content-type') || '';
       if (res.ok && contentType.includes('application/json')) {
         const data = await res.json();
+        if (!data.productionSoftware) {
+          data.productionSoftware = INITIAL_PORTFOLIO_DATA.productionSoftware;
+        }
         localStorage.setItem('orez_portfolio_data', JSON.stringify(data));
         return data;
       }
@@ -308,6 +316,67 @@ export const api = {
     const current = getLocalPortfolio();
     const updatedCaps = current.capabilities.filter((c) => c.id !== id);
     saveLocalPortfolio({ ...current, capabilities: updatedCaps });
+    return true;
+  },
+
+  // Production Software & Toolkit
+  async saveSoftwareTool(tool: Partial<SoftwareTool>): Promise<SoftwareTool> {
+    const isEdit = Boolean(tool.id);
+    const url = isEdit ? `/api/software/${tool.id}` : '/api/software';
+    const method = isEdit ? 'PUT' : 'POST';
+
+    try {
+      const res = await fetch(url, {
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.getToken()}`,
+        },
+        body: JSON.stringify(tool),
+      });
+      if (res.ok) {
+        const saved = await res.json();
+        const current = getLocalPortfolio();
+        const list = current.productionSoftware || [];
+        const updatedList = isEdit
+          ? list.map((item) => (item.id === saved.id ? saved : item))
+          : [...list, saved];
+        saveLocalPortfolio({ ...current, productionSoftware: updatedList });
+        return saved;
+      }
+    } catch {}
+
+    const current = getLocalPortfolio();
+    const list = current.productionSoftware || [];
+    const savedTool: SoftwareTool = {
+      id: tool.id || `sw_${Date.now()}`,
+      name: tool.name || 'New Software Tool',
+      level: tool.level || 'Mastery',
+      category: tool.category || 'Visual Design',
+      published: tool.published ?? true,
+      order: tool.order ?? list.length + 1,
+    };
+
+    const updatedList = isEdit
+      ? list.map((item) => (item.id === savedTool.id ? savedTool : item))
+      : [...list, savedTool];
+
+    saveLocalPortfolio({ ...current, productionSoftware: updatedList });
+    return savedTool;
+  },
+
+  async deleteSoftwareTool(id: string): Promise<boolean> {
+    try {
+      await fetch(`/api/software/${id}`, {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${this.getToken()}` },
+      });
+    } catch {}
+
+    const current = getLocalPortfolio();
+    const list = current.productionSoftware || [];
+    const updatedList = list.filter((item) => item.id !== id);
+    saveLocalPortfolio({ ...current, productionSoftware: updatedList });
     return true;
   },
 

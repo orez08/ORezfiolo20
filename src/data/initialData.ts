@@ -1,4 +1,55 @@
-import { PortfolioData } from '../types.ts';
+import { PortfolioData, SoftwareTool } from '../types.ts';
+
+export const INITIAL_PRODUCTION_SOFTWARE: SoftwareTool[] = [
+  {
+    id: 'sw-1',
+    name: 'Adobe After Effects',
+    level: 'Mastery',
+    category: 'Motion Graphics & FX',
+    published: true,
+    order: 1,
+  },
+  {
+    id: 'sw-2',
+    name: 'Adobe Photoshop',
+    level: 'Mastery',
+    category: 'Compositing & Retouch',
+    published: true,
+    order: 2,
+  },
+  {
+    id: 'sw-3',
+    name: 'Adobe Illustrator',
+    level: 'Mastery',
+    category: 'Vector & Typography',
+    published: true,
+    order: 3,
+  },
+  {
+    id: 'sw-4',
+    name: 'Adobe Premiere Pro',
+    level: 'Advanced',
+    category: 'Video Editing & Pacing',
+    published: true,
+    order: 4,
+  },
+  {
+    id: 'sw-5',
+    name: 'Adobe Lightroom',
+    level: 'Advanced',
+    category: 'Color Grading & Tone',
+    published: true,
+    order: 5,
+  },
+  {
+    id: 'sw-6',
+    name: 'Figma',
+    level: 'Advanced',
+    category: 'Brand Systems & Layout',
+    published: true,
+    order: 6,
+  },
+];
 
 export const INITIAL_PORTFOLIO_DATA: PortfolioData = {
   hero: {
@@ -285,6 +336,7 @@ export const INITIAL_PORTFOLIO_DATA: PortfolioData = {
       order: 2,
     },
   ],
+  productionSoftware: INITIAL_PRODUCTION_SOFTWARE,
 };
 
 export const initialPortfolioData = INITIAL_PORTFOLIO_DATA;

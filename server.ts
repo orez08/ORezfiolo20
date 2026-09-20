@@ -54,6 +54,9 @@ function loadDatabase(): DatabaseSchema {
       const raw = fs.readFileSync(DB_FILE, 'utf-8');
       const parsed = JSON.parse(raw);
       if (parsed.portfolio && parsed.interactions && parsed.messages) {
+        if (!parsed.portfolio.productionSoftware) {
+          parsed.portfolio.productionSoftware = INITIAL_PORTFOLIO_DATA.productionSoftware || [];
+        }
         return parsed;
       }
     }
@@ -92,6 +95,7 @@ function saveDatabase(db: DatabaseSchema) {
 }
 
 let db = loadDatabase();
+saveDatabase(db);
 
 async function startServer() {
   const app = express();
@@ -295,6 +299,57 @@ async function startServer() {
     });
     saveDatabase(db);
     res.json({ success: true, capabilities: db.portfolio.capabilities });
+  });
+
+  // Production Software & Toolkit CRUD
+  app.get('/api/software', (req, res) => {
+    res.json(db.portfolio.productionSoftware || []);
+  });
+
+  app.post('/api/software', (req, res) => {
+    const item = req.body;
+    if (!db.portfolio.productionSoftware) {
+      db.portfolio.productionSoftware = [];
+    }
+    const count = db.portfolio.productionSoftware.length + 1;
+    const tool = {
+      id: `sw-${Date.now()}`,
+      name: item.name || 'New Software Tool',
+      level: item.level || 'Mastery',
+      category: item.category || 'Visual Design',
+      published: item.published !== false,
+      order: typeof item.order === 'number' ? item.order : count,
+    };
+    db.portfolio.productionSoftware.push(tool);
+    saveDatabase(db);
+    res.status(201).json(tool);
+  });
+
+  app.put('/api/software/:id', (req, res) => {
+    const { id } = req.params;
+    if (!db.portfolio.productionSoftware) {
+      db.portfolio.productionSoftware = [];
+    }
+    const index = db.portfolio.productionSoftware.findIndex((s) => s.id === id);
+    if (index === -1) {
+      return res.status(404).json({ error: 'Software tool not found' });
+    }
+    db.portfolio.productionSoftware[index] = {
+      ...db.portfolio.productionSoftware[index],
+      ...req.body,
+      id,
+    };
+    saveDatabase(db);
+    res.json(db.portfolio.productionSoftware[index]);
+  });
+
+  app.delete('/api/software/:id', (req, res) => {
+    const { id } = req.params;
+    if (db.portfolio.productionSoftware) {
+      db.portfolio.productionSoftware = db.portfolio.productionSoftware.filter((s) => s.id !== id);
+      saveDatabase(db);
+    }
+    res.json({ success: true });
   });
 
   // Testimonials CRUD

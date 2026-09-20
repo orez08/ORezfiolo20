@@ -176,8 +176,11 @@ export default function App() {
           {/* 02 — About */}
           <AboutSection about={portfolio.about} />
 
-          {/* 03 — Capabilities */}
-          <CapabilitiesSection capabilities={portfolio.capabilities} />
+          {/* 03 — Capabilities & Production Software */}
+          <CapabilitiesSection
+            capabilities={portfolio.capabilities}
+            productionSoftware={portfolio.productionSoftware || []}
+          />
 
           {/* 04 — Work & Portfolio */}
           <WorkSection
