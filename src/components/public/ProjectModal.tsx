@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, ArrowUpRight, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
+import { X, ArrowUpRight, ChevronLeft, ChevronRight, Sparkles, Maximize2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { WorkProject } from '../../types.ts';
 import { trackAction } from '../../utils/analyticsTracker.ts';
@@ -80,12 +80,23 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
         </div>
 
         {/* Gallery / Image Showcase */}
-        <div className="relative aspect-[16/9] bg-black/80 overflow-hidden group">
+        <div className="relative aspect-[16/9] bg-black/95 overflow-hidden group">
           <img
             src={allImages[activeImageIdx]}
             alt={project.title}
-            className="w-full h-full object-cover object-center transition-all duration-300"
+            className="w-full h-full object-contain object-center transition-all duration-300"
           />
+
+          {/* View Full Resolution Floating Button */}
+          <a
+            href={allImages[activeImageIdx]}
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Open full version in new tab"
+            className="absolute top-4 right-4 p-2.5 rounded-full bg-black/80 text-white hover:bg-[#E8746A] hover:scale-105 transition-all backdrop-blur-md border border-white/10 z-10 flex items-center justify-center cursor-pointer shadow-lg"
+          >
+            <Maximize2 className="w-4 h-4" />
+          </a>
 
           {allImages.length > 1 && (
             <>
