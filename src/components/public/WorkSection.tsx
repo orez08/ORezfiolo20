@@ -151,13 +151,13 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ projects, onOpenAdmin,
                   onClick={() => handleProjectClick(proj)}
                   className="group relative cursor-pointer flex flex-col glass-surface hover:border-[#E8746A]/70 transition-all duration-500 rounded-sm overflow-hidden hud-frame"
                 >
-                  {/* Image Container with Editorial Mask & Zoom */}
-                  <div className="relative aspect-[16/10] overflow-hidden bg-black/95">
+                  {/* Image Container with Dynamic Height */}
+                  <div className="relative w-full overflow-hidden bg-black/40">
                     <img
                       src={proj.coverImage}
                       alt={proj.title}
                       loading="lazy"
-                      className="w-full h-full object-contain object-center filter contrast-[1.05] group-hover:scale-102 transition-transform duration-700 ease-out"
+                      className="w-full h-auto object-contain block filter contrast-[1.05] group-hover:scale-102 transition-transform duration-700 ease-out"
                       onError={(e) => {
                         (e.currentTarget as HTMLImageElement).src =
                           'https://images.unsplash.com/photo-1600132806370-bf17e65e942f?q=80&w=1200&auto=format&fit=crop';

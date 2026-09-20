@@ -79,12 +79,12 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
           </button>
         </div>
 
-        {/* Gallery / Image Showcase */}
-        <div className="relative aspect-[16/9] bg-black/95 overflow-hidden group">
+        {/* Gallery / Image Showcase with Dynamic Natural Fitting */}
+        <div className="relative w-full max-h-[75vh] bg-[#0c0c0c] overflow-hidden group flex items-center justify-center">
           <img
             src={allImages[activeImageIdx]}
             alt={project.title}
-            className="w-full h-full object-contain object-center transition-all duration-300"
+            className="w-full max-h-[75vh] h-auto object-contain transition-all duration-300 block"
           />
 
           {/* View Full Resolution Floating Button */}
