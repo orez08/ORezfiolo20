@@ -8,9 +8,10 @@ import { trackSectionView, trackAction } from '../../utils/analyticsTracker.ts';
 interface WorkSectionProps {
   projects: WorkProject[];
   onOpenAdmin: () => void;
+  onInquireSimilarWork?: (category: string, projectTitle: string) => void;
 }
 
-export const WorkSection: React.FC<WorkSectionProps> = ({ projects, onOpenAdmin }) => {
+export const WorkSection: React.FC<WorkSectionProps> = ({ projects, onOpenAdmin, onInquireSimilarWork }) => {
   const sectionRef = useRef<HTMLElement>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [activeProject, setActiveProject] = useState<WorkProject | null>(null);
@@ -176,38 +177,53 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ projects, onOpenAdmin 
                       </span>
                     </div>
 
-                    {/* Hover Floating Action */}
+                    {/* Hover Floating Action: View Work */}
                     <div className="absolute bottom-4 right-4 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                      <div className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center shadow-lg group-hover:bg-[#E8746A] group-hover:text-white transition-colors">
-                        <ArrowUpRight className="w-5 h-5" />
+                      <div className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white text-black text-xs font-semibold uppercase tracking-wider shadow-xl group-hover:bg-[#E8746A] group-hover:text-white transition-colors">
+                        <span>View Work</span>
+                        <ArrowUpRight className="w-4 h-4" />
                       </div>
                     </div>
                   </div>
 
                   {/* Card Meta Content */}
-                  <div className="p-6 flex-1 flex flex-col justify-between">
+                  <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
                     <div>
                       <h3 className="font-display font-medium text-2xl text-white group-hover:text-[#E8746A] transition-colors mb-2 tracking-tight">
                         {proj.title}
                       </h3>
-                      <p className="text-sm text-white/75 font-normal line-clamp-2 leading-relaxed mb-4">
+                      <p className="text-sm text-white/75 font-normal line-clamp-2 leading-relaxed">
                         {proj.description}
                       </p>
                     </div>
 
-                    {/* Discipline Tags */}
-                    {proj.tags && proj.tags.length > 0 && (
-                      <div className="flex flex-wrap gap-1.5 pt-4 border-t border-white/10">
-                        {proj.tags.slice(0, 3).map((tag: string) => (
-                          <span
-                            key={tag}
-                            className="text-[10px] uppercase font-sans tracking-wider px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-white/60"
-                          >
-                            {tag}
+                    {/* Bottom Action & Discipline Tags */}
+                    <div className="flex items-center justify-between pt-4 border-t border-white/10 gap-2">
+                      <div className="flex flex-wrap gap-1.5">
+                        {proj.tags && proj.tags.length > 0 ? (
+                          proj.tags.slice(0, 2).map((tag: string) => (
+                            <span
+                              key={tag}
+                              className="text-[10px] uppercase font-sans tracking-wider px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-white/60"
+                            >
+                              {tag}
+                            </span>
+                          ))
+                        ) : (
+                          <span className="text-[10px] uppercase font-sans tracking-wider text-white/50">
+                            {proj.category}
                           </span>
-                        ))}
+                        )}
                       </div>
-                    )}
+
+                      <button
+                        type="button"
+                        className="inline-flex items-center gap-1 text-xs font-sans uppercase tracking-wider text-[#E8746A] group-hover:text-white font-semibold transition-colors flex-shrink-0"
+                      >
+                        <span>View Work</span>
+                        <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                      </button>
+                    </div>
                   </div>
                 </motion.div>
               ))}
@@ -219,6 +235,12 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ projects, onOpenAdmin 
         <ProjectModal
           project={activeProject}
           onClose={() => setActiveProject(null)}
+          onInquireSimilarWork={(cat, title) => {
+            setActiveProject(null);
+            if (onInquireSimilarWork) {
+              onInquireSimilarWork(cat, title);
+            }
+          }}
         />
       </div>
     </section>

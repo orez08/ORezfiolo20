@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, ArrowUpRight, ChevronLeft, ChevronRight, Calendar, Tag, User } from 'lucide-react';
+import { X, ArrowUpRight, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { WorkProject } from '../../types.ts';
 import { trackAction } from '../../utils/analyticsTracker.ts';
@@ -7,9 +7,10 @@ import { trackAction } from '../../utils/analyticsTracker.ts';
 interface ProjectModalProps {
   project: WorkProject | null;
   onClose: () => void;
+  onInquireSimilarWork?: (category: string, projectTitle: string) => void;
 }
 
-export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
+export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, onInquireSimilarWork }) => {
   if (!project) return null;
 
   const allImages = [project.coverImage, ...(project.gallery || [])].filter(Boolean);
@@ -27,12 +28,16 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
     trackAction('cta_click', {
       section: 'project_modal',
       projectTitle: project.title,
-      details: `Inquired about project from modal: ${project.title}`,
+      details: `Inquired about project from modal: ${project.title} (${project.category})`,
     });
-    onClose();
-    const contactEl = document.getElementById('contact');
-    if (contactEl) {
-      contactEl.scrollIntoView({ behavior: 'smooth' });
+    if (onInquireSimilarWork) {
+      onInquireSimilarWork(project.category, project.title);
+    } else {
+      onClose();
+      const contactEl = document.getElementById('contact');
+      if (contactEl) {
+        contactEl.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 
@@ -196,6 +201,57 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                     {t}
                   </span>
                 ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Inquire Similar Work Action Card */}
+          <div className="p-5 sm:p-6 rounded-sm glass-surface border border-[#E8746A]/30 bg-[#140608]/70 space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <div className="text-[11px] uppercase tracking-widest text-[#E8746A] font-semibold font-sans flex items-center gap-1.5 mb-1">
+                  <Sparkles className="w-3.5 h-3.5" />
+                  <span>Project Discipline: {project.category}</span>
+                </div>
+                <h4 className="font-display font-medium text-lg text-white">
+                  Inquire Similar Work in {project.category}
+                </h4>
+                <p className="text-xs text-white/60 font-sans">
+                  Looking for bespoke visual design, brand identity, or creative execution in this category?
+                </p>
+              </div>
+
+              <div className="flex flex-wrap sm:flex-nowrap items-center gap-2.5 flex-shrink-0">
+                <a
+                  id="modal-inquire-whatsapp-btn"
+                  href={`https://wa.me/2348165462205?text=${encodeURIComponent(
+                    `Hello ORez, I saw your project "${project.title}" and would like to inquire about similar work in the "${project.category}" discipline.`
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() =>
+                    trackAction('cta_click', {
+                      section: 'project_modal',
+                      projectTitle: project.title,
+                      details: `Inquired similar work via WhatsApp: ${project.category}`,
+                    })
+                  }
+                  className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-[#25D366] text-black font-semibold text-xs uppercase tracking-wider hover:bg-[#20bd5a] transition-all shadow-md group"
+                >
+                  <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l.299.476-1.152 4.208 4.298-1.127.398.243z"/>
+                  </svg>
+                  <span>WhatsApp Inquire</span>
+                </a>
+
+                <button
+                  id="modal-inquire-category-btn"
+                  onClick={handleContactAboutProject}
+                  className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-white text-black font-semibold text-xs uppercase tracking-wider hover:bg-[#E8746A] hover:text-white transition-all shadow-md cursor-pointer"
+                >
+                  <span>Inquire Similar Work</span>
+                  <ArrowUpRight className="w-3.5 h-3.5" />
+                </button>
               </div>
             </div>
           </div>

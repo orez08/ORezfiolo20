@@ -1,7 +1,94 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'motion/react';
 import { AboutContent } from '../../types.ts';
 import { trackSectionView } from '../../utils/analyticsTracker.ts';
+
+interface CountUpProps {
+  value: string;
+}
+
+const CountUpNumber: React.FC<CountUpProps> = ({ value }) => {
+  const ref = useRef<HTMLSpanElement>(null);
+  const [displayValue, setDisplayValue] = useState<string>(value);
+  const [hasAnimated, setHasAnimated] = useState<boolean>(false);
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setHasAnimated(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!hasAnimated) return;
+
+    // Match numbers in strings like "20+", "100%", "$50K", "5+ Years", "4.8"
+    const match = value.match(/^([^\d]*)([\d,.]+)(.*)$/);
+    if (!match) {
+      setDisplayValue(value);
+      return;
+    }
+
+    const prefix = match[1] || '';
+    const rawNumStr = match[2].replace(/,/g, '');
+    const targetNum = parseFloat(rawNumStr);
+    const suffix = match[3] || '';
+
+    if (isNaN(targetNum) || targetNum === 0) {
+      setDisplayValue(value);
+      return;
+    }
+
+    const hasDecimals = rawNumStr.includes('.');
+    const decimalPlaces = hasDecimals ? rawNumStr.split('.')[1].length : 0;
+
+    // Scale duration proportionally to target number for fast snappy cadence (600ms - 1400ms)
+    const duration = Math.min(Math.max(targetNum * 25, 600), 1400);
+
+    let startTime: number | null = null;
+    let animationFrameId: number;
+
+    const updateCount = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const elapsedTime = timestamp - startTime;
+      const progress = Math.min(elapsedTime / duration, 1);
+
+      // Smooth Ease-Out Quadratic formula
+      const easeOut = 1 - (1 - progress) * (1 - progress);
+      const currentNum = easeOut * targetNum;
+
+      const formattedVal = hasDecimals
+        ? currentNum.toFixed(decimalPlaces)
+        : Math.round(currentNum).toString();
+
+      setDisplayValue(`${prefix}${formattedVal}${suffix}`);
+
+      if (progress < 1) {
+        animationFrameId = requestAnimationFrame(updateCount);
+      } else {
+        setDisplayValue(value);
+      }
+    };
+
+    animationFrameId = requestAnimationFrame(updateCount);
+
+    return () => {
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+    };
+  }, [hasAnimated, value]);
+
+  return <span ref={ref}>{displayValue}</span>;
+};
 
 interface AboutSectionProps {
   about: AboutContent;
@@ -175,7 +262,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ about }) => {
               className="p-4 sm:p-6 rounded-sm glass-surface hover:border-[#E8746A]/60 transition-all duration-300 group"
             >
               <div className="font-display font-semibold text-3xl sm:text-4xl md:text-5xl text-white group-hover:text-[#E8746A] transition-colors mb-2">
-                {stat.value}
+                <CountUpNumber value={stat.value} />
               </div>
               <div className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-[#E8746A] mb-1">
                 {stat.label}

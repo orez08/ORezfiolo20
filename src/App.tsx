@@ -24,6 +24,15 @@ export default function App() {
   const [adminUser, setAdminUser] = useState<AdminUser | null>(null);
   const [isAdminRoute, setIsAdminRoute] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [inquiryDiscipline, setInquiryDiscipline] = useState<{ category: string; projectTitle: string } | null>(null);
+
+  const handleInquireSimilarWork = (category: string, projectTitle: string) => {
+    setInquiryDiscipline({ category, projectTitle });
+    const contactEl = document.getElementById('contact');
+    if (contactEl) {
+      contactEl.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   // Check URL routes for admin
   useEffect(() => {
@@ -163,6 +172,7 @@ export default function App() {
           <WorkSection
             projects={portfolio.projects}
             onOpenAdmin={navigateToAdmin}
+            onInquireSimilarWork={handleInquireSimilarWork}
           />
 
           {/* Testimonials & Endorsements */}
@@ -172,7 +182,10 @@ export default function App() {
           />
 
           {/* 05 — Contact */}
-          <ContactSection contact={portfolio.contact} />
+          <ContactSection
+            contact={portfolio.contact}
+            prefilledInquiry={inquiryDiscipline}
+          />
         </main>
 
         {/* Footer */}
