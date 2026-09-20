@@ -14,6 +14,12 @@ export const CapabilitiesManager: React.FC<CapabilitiesManagerProps> = ({
 }) => {
   const [items, setItems] = useState<Capability[]>([...capabilities]);
   const [editingId, setEditingId] = useState<string | null>(null);
+
+  React.useEffect(() => {
+    if (capabilities) {
+      setItems([...capabilities]);
+    }
+  }, [capabilities]);
   const [editForm, setEditForm] = useState<Partial<Capability>>({});
   const [skillInput, setSkillInput] = useState('');
   const [saving, setSaving] = useState(false);

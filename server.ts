@@ -96,8 +96,8 @@ let db = loadDatabase();
 async function startServer() {
   const app = express();
 
-  app.use(express.json({ limit: '25mb' }));
-  app.use(express.urlencoded({ extended: true, limit: '25mb' }));
+  app.use(express.json({ limit: '50mb' }));
+  app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
   // Static files for uploads
   app.use('/uploads', express.static(UPLOADS_DIR));
@@ -568,18 +568,29 @@ async function startServer() {
         return res.status(400).json({ error: 'dataUrl is required' });
       }
 
-      // Robust regex matching multiline base64 data and any mime type
-      const matches = dataUrl.match(/^data:([^;]+);base64,([\s\S]+)$/);
-      if (!matches || matches.length !== 3) {
-        return res.status(400).json({ error: 'Invalid base64 data' });
+      if (dataUrl.startsWith('http://') || dataUrl.startsWith('https://') || dataUrl.startsWith('/uploads/')) {
+        return res.json({ success: true, url: dataUrl, filename: filename || 'remote_asset' });
       }
 
-      const mimeType = matches[1];
-      const rawBase64 = matches[2].replace(/\s/g, ''); // strip any accidental whitespace/newlines
-      const buffer = Buffer.from(rawBase64, 'base64');
-      let ext = mimeType.split('/')[1] || 'jpg';
-      if (ext === 'jpeg') ext = 'jpg';
-      if (ext.includes('+')) ext = ext.split('+')[0];
+      let buffer: Buffer;
+      let ext = 'jpg';
+
+      const base64Index = dataUrl.indexOf(';base64,');
+      if (base64Index !== -1) {
+        const mime = dataUrl.substring(5, base64Index);
+        const rawBase64 = dataUrl.substring(base64Index + 8).replace(/\s/g, '');
+        buffer = Buffer.from(rawBase64, 'base64');
+        ext = mime.split('/')[1] || 'jpg';
+        if (ext === 'jpeg') ext = 'jpg';
+        if (ext.includes('+')) ext = ext.split('+')[0];
+        if (ext.includes('svg')) ext = 'svg';
+      } else if (dataUrl.includes(',')) {
+        const parts = dataUrl.split(',');
+        const rawBase64 = parts[1].replace(/\s/g, '');
+        buffer = Buffer.from(rawBase64, 'base64');
+      } else {
+        buffer = Buffer.from(dataUrl.replace(/\s/g, ''), 'base64');
+      }
 
       const cleanName = filename ? filename.replace(/[^a-zA-Z0-9_-]/g, '_').slice(0, 40) : 'asset';
       const outFileName = `${cleanName}_${Date.now()}.${ext}`;
@@ -592,9 +603,9 @@ async function startServer() {
         url: `/uploads/${outFileName}`,
         filename: outFileName,
       });
-    } catch (err) {
+    } catch (err: any) {
       console.error('Upload error:', err);
-      res.status(500).json({ error: 'Failed to process upload' });
+      res.status(500).json({ error: err.message || 'Failed to process upload' });
     }
   });
 
@@ -629,12 +640,13 @@ async function startServer() {
   // Delete an uploaded media file
   app.delete('/api/uploads/:filename', (req, res) => {
     try {
-      const filename = path.basename(req.params.filename);
-      const targetPath = path.join(UPLOADS_DIR, filename);
+      const rawName = decodeURIComponent(req.params.filename);
+      const cleanFilename = path.basename(rawName);
+      const targetPath = path.join(UPLOADS_DIR, cleanFilename);
       if (fs.existsSync(targetPath)) {
         fs.unlinkSync(targetPath);
       }
-      res.json({ success: true, deleted: filename });
+      res.json({ success: true, deleted: cleanFilename });
     } catch (err) {
       console.error('Delete upload error:', err);
       res.status(500).json({ error: 'Failed to delete file' });

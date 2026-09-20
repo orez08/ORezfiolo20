@@ -10,6 +10,12 @@ interface CvManagerProps {
 
 export const CvManager: React.FC<CvManagerProps> = ({ cvItems = [], onRefresh }) => {
   const [items, setItems] = useState<CvItem[]>([...cvItems]);
+
+  React.useEffect(() => {
+    if (cvItems) {
+      setItems([...cvItems]);
+    }
+  }, [cvItems]);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editForm, setEditForm] = useState<Partial<CvItem>>({});
   const [saving, setSaving] = useState(false);

@@ -27,6 +27,11 @@ export const AboutEditor: React.FC<AboutEditorProps> = ({ about, onSave }) => {
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [showMediaLibrary, setShowMediaLibrary] = useState(false);
   const [newChip, setNewChip] = useState('');
+  const [isDraggingOver, setIsDraggingOver] = useState(false);
+
+  React.useEffect(() => {
+    setData({ ...about });
+  }, [about]);
 
   const handleSave = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
@@ -43,22 +48,34 @@ export const AboutEditor: React.FC<AboutEditorProps> = ({ about, onSave }) => {
     }
   };
 
-  const handleImageFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+  const processAndUploadFile = async (file: File) => {
+    if (!file || !file.type.startsWith('image/')) {
+      setUploadError('Please select a valid image file (JPEG, PNG, WEBP, etc.)');
+      return;
+    }
 
     setUploadingImage(true);
     setUploadStatus('Optimizing image for web...');
     setUploadError(null);
 
     try {
-      // 1. Optimize image through canvas
-      const optimizedBase64 = await api.compressImageFile(file, 1600, 0.88);
+      // 1. Try compression, fallback to raw reader
+      let dataUrl = '';
+      try {
+        dataUrl = await api.compressImageFile(file, 1600, 0.88);
+      } catch {
+        const reader = new FileReader();
+        dataUrl = await new Promise((res, rej) => {
+          reader.onload = () => res(reader.result as string);
+          reader.onerror = rej;
+          reader.readAsDataURL(file);
+        });
+      }
 
       // 2. Upload to server
-      setUploadStatus('Saving to server...');
+      setUploadStatus('Saving image to server...');
       const uploadedUrl = await api.uploadImage(
-        optimizedBase64,
+        dataUrl,
         `portrait_${Date.now()}`
       );
 
@@ -66,11 +83,11 @@ export const AboutEditor: React.FC<AboutEditorProps> = ({ about, onSave }) => {
       const updated = { ...data, portraitUrl: uploadedUrl };
       setData(updated);
 
-      // 4. Immediately persist to database so it is never lost!
-      setUploadStatus('Persisting portrait...');
+      // 4. Immediately persist
+      setUploadStatus('Persisting portrait changes...');
       await onSave(updated);
 
-      setUploadStatus('Portrait uploaded and saved successfully!');
+      setUploadStatus('Portrait uploaded & saved successfully!');
       setTimeout(() => setUploadStatus(null), 4000);
     } catch (err: any) {
       console.error('Portrait upload error:', err);
@@ -78,7 +95,23 @@ export const AboutEditor: React.FC<AboutEditorProps> = ({ about, onSave }) => {
       setTimeout(() => setUploadError(null), 5000);
     } finally {
       setUploadingImage(false);
-      if (e.target) e.target.value = '';
+    }
+  };
+
+  const handleImageFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      await processAndUploadFile(file);
+    }
+    if (e.target) e.target.value = '';
+  };
+
+  const handleDropImage = async (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDraggingOver(false);
+    const file = e.dataTransfer.files?.[0];
+    if (file) {
+      await processAndUploadFile(file);
     }
   };
 
@@ -234,7 +267,19 @@ export const AboutEditor: React.FC<AboutEditorProps> = ({ about, onSave }) => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-12 gap-6 items-center">
-          <div className="sm:col-span-4 aspect-[4/5] rounded-sm overflow-hidden bg-[#141414] border border-[#F5F1EA]/15 relative group">
+          <div
+            onDragOver={(e) => {
+              e.preventDefault();
+              setIsDraggingOver(true);
+            }}
+            onDragLeave={() => setIsDraggingOver(false)}
+            onDrop={handleDropImage}
+            className={`sm:col-span-4 aspect-[4/5] rounded-sm overflow-hidden bg-[#141414] border relative group transition-all ${
+              isDraggingOver
+                ? 'border-[#E8746A] ring-2 ring-[#E8746A]/50 bg-[#8B1E1E]/20'
+                : 'border-[#F5F1EA]/15'
+            }`}
+          >
             <img
               src={data.portraitUrl || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop'}
               alt="ORez"
@@ -244,6 +289,14 @@ export const AboutEditor: React.FC<AboutEditorProps> = ({ about, onSave }) => {
                   'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop';
               }}
             />
+
+            {isDraggingOver && (
+              <div className="absolute inset-0 bg-[#8B1E1E]/80 backdrop-blur-xs flex flex-col items-center justify-center text-xs font-sans text-white p-2 text-center">
+                <Upload className="w-8 h-8 text-white mb-2 animate-bounce" />
+                <span className="font-semibold uppercase tracking-wider">Drop Image Here to Upload</span>
+              </div>
+            )}
+
             {uploadingImage && (
               <div className="absolute inset-0 bg-black/80 flex flex-col items-center justify-center text-xs font-sans text-[#F5F1EA] gap-2 p-2 text-center">
                 <div className="w-5 h-5 border-2 border-[#E8746A] border-t-transparent rounded-full animate-spin" />
@@ -251,7 +304,7 @@ export const AboutEditor: React.FC<AboutEditorProps> = ({ about, onSave }) => {
               </div>
             )}
 
-            {data.portraitUrl && !uploadingImage && (
+            {data.portraitUrl && !uploadingImage && !isDraggingOver && (
               <button
                 type="button"
                 onClick={handleRemovePortrait}

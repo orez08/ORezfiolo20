@@ -13,6 +13,12 @@ export const HeroEditor: React.FC<HeroEditorProps> = ({ hero, onSave }) => {
   const [saved, setSaved] = useState(false);
   const [newClient, setNewClient] = useState('');
 
+  React.useEffect(() => {
+    if (hero) {
+      setData({ ...hero });
+    }
+  }, [hero]);
+
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);

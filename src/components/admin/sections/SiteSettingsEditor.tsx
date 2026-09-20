@@ -15,6 +15,12 @@ export const SiteSettingsEditor: React.FC<SiteSettingsEditorProps> = ({
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
 
+  React.useEffect(() => {
+    if (settings) {
+      setData({ ...settings });
+    }
+  }, [settings]);
+
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);

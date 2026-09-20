@@ -73,6 +73,13 @@ export default function App() {
   useEffect(() => {
     loadPortfolioData();
 
+    const handlePortfolioEvent = (e: any) => {
+      if (e.detail) {
+        setPortfolio(e.detail);
+      }
+    };
+    window.addEventListener('orez_portfolio_updated', handlePortfolioEvent);
+
     // Check existing stored admin session
     const stored = api.getStoredUser();
     if (stored) {
@@ -81,6 +88,10 @@ export default function App() {
 
     // Track public visitor entry
     trackVisitorSession();
+
+    return () => {
+      window.removeEventListener('orez_portfolio_updated', handlePortfolioEvent);
+    };
   }, []);
 
   const handleUpdatePortfolio = async (updatedFields: Partial<PortfolioData>) => {
